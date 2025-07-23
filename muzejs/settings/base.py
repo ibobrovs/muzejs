@@ -46,7 +46,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-]
+    'modeltranslation',
+    'wagtail_localize',
+    'wagtail_localize.locales',
+    "wagtail_modeladmin",
+    ]
 
 MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -86,9 +90,13 @@ WSGI_APPLICATION = "muzejs.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'muzejs_db',
+        'USER': 'muzejs_user',
+        'PASSWORD': 'muzejs_pass',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -120,7 +128,7 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
 
@@ -183,3 +191,14 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 # if untrusted users are allowed to upload files -
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
+
+
+LANGUAGES = [
+    ('lv', 'Latviešu'),
+    ('en', 'English'),
+]
+
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES
+WAGTAIL_LOCALIZE = {
+    'AUTO_POPULATE_TRANSLATIONS': False,
+}

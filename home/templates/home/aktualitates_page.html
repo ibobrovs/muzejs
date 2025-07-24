@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+  <div>{{ page.intro|richtext }}</div>
+
+  <ul>
+    {% for post in page.get_children.live %}
+      <li>
+        <a href="{{ post.url }}">{{ post.title }}</a> — {{ post.specific.date }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

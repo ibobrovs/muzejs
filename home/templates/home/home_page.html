@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block content %}
-  {% for block in page.banner %}
-    {% if block.block_type == 'banner' %}
-      <section class="banner" style="background-image: url('{{ block.value.background_image.url }}')">
-        <h1>{{ block.value.title }}</h1>
-        <p>{{ block.value.subtitle }}</p>
-        <p>{{ block.value.background_image.url }}</p>
-      </section>
-    {% endif %}
-  {% endfor %}
+{% for block in page.banner %}
+  {% if block.block_type == 'banner' %}
+    <section class="banner" style="background-image: url('{{ block.value.background_image.url }}')">
+      <h1>{{ block.value.title }}</h1>
+      <p>{{ block.value.subtitle }}</p>
+    </section>
+  {% endif %}
+{% endfor %}
+
 {% endblock %}

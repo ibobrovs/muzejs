@@ -1,31 +1,22 @@
-from wagtail.models import Page
-from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel
 from django.db import models
-from modelcluster.fields import ParentalKey
-from wagtail import blocks
-from wagtail.fields import StreamField
+from wagtail.models import Page
+from wagtail.fields import StreamField, RichTextField
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel
 
 
+# -- Главная страница
 class HomePage(Page):
     intro = models.CharField(max_length=255, blank=True)
 
-    banner = StreamField([
-        ('banner', blocks.StructBlock([
-            ('title', blocks.CharBlock(required=True)),
-            ('subtitle', blocks.TextBlock(required=False)),
-            ('background_image', ImageChooserBlock(required=False)),
-        ])),
-    ], use_json_field=True, blank=True)
-
     content_panels = Page.content_panels + [
-        FieldPanel('intro'),
-        FieldPanel('banner'),
+        FieldPanel("intro"),
     ]
-    
-# Страница-список новостей
-class AktualitatesPage(Page):
+
+
+# -- О музее
+class ParMuzejuPage(Page):
     body = StreamField([
         ("heading", blocks.CharBlock(classname="full title")),
         ("paragraph", blocks.RichTextBlock()),
@@ -36,45 +27,55 @@ class AktualitatesPage(Page):
         FieldPanel("body")
     ]
 
-# Страница одной новости
-class AktualitateDetailPage(Page):
-    date = models.DateField("Publicēšanas datums")
-    body = StreamField([
-        ("heading", blocks.CharBlock(classname="full title")),
-        ("paragraph", blocks.RichTextBlock()),
-        ("image", ImageChooserBlock()),
-    ], use_json_field=True)
+
+# -- Контакты
+class KontaktiPage(Page):
+    address = models.TextField(blank=True)
+    phone = models.CharField(max_length=50, blank=True)
+    email = models.EmailField(blank=True)
+    map_embed = models.TextField(blank=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel("date"),
-        FieldPanel("body"),
+        FieldPanel("address"),
+        FieldPanel("phone"),
+        FieldPanel("email"),
+        FieldPanel("map_embed"),
     ]
 
-    parent_page_types = ['home.AktualitatesPage']
 
-
-class EkspozicijasPage(Page):
-    intro = RichTextField(blank=True, verbose_name="Ievads")
-    body = StreamField([
-        ("virsraksts", blocks.CharBlock(classname="full title", label="Virsraksts")),
-        ("teksts", blocks.RichTextBlock(label="Teksts")),
-        ("attels", ImageChooserBlock(label="Attēls")),
-    ], use_json_field=True, verbose_name="Saturs")
+# -- Список событий
+class EventsPage(Page):
+    intro = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel("intro"),
-        FieldPanel("body"),
     ]
 
 
-class GalerijasPage(Page):
-    gallery = StreamField([
-        ("image", blocks.StructBlock([
-            ("title", blocks.CharBlock(required=False)),
-            ("image", ImageChooserBlock(required=True)),
-        ])),
-    ], use_json_field=True)
+# -- Отдельное событие
+class EventDetailPage(Page):
+    date = models.DateField()
+    description = RichTextField(blank=True)
+    image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+"
+    )
 
     content_panels = Page.content_panels + [
-        FieldPanel("gallery"),
+        FieldPanel("date"),
+        FieldPanel("description"),
+        FieldPanel("image"),
+    ]
+
+    parent_page_types = ['home.EventsPage']
+
+
+# -- Visit info (для посетителей)
+class VisitPage(Page):
+    info = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel("info"),
     ]

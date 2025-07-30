@@ -1,0 +1,13 @@
+{% extends "home/base.html" %}
+{% block content %}
+  <h1>{{ page.title }}</h1>
+  <ul>
+    {% for s in page.services %}
+      <li>
+        <strong>{{ s.value.title }}</strong>
+        {% if s.value.price %} — {{ s.value.price }}{% endif %}
+        {% if s.value.desc %}<div>{{ s.value.desc|richtext }}</div>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

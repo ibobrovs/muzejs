@@ -69,7 +69,7 @@ ROOT_URLCONF = "muzejs.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'home' / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

@@ -1,47 +1,21 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="lv">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{{ page.title }} | Muzejs{% endblock %}</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Стили -->
-    <link rel="stylesheet" href="{% static 'css/muzejs.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    {% block extra_head %}{% endblock %}
+  <meta charset="UTF-8">
+  <title>{% block title %}{{ page.title }}{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <nav>
-            <ul>
-                {% for child in page.get_children.live %}
-                    <li><a href="{{ child.url }}">{{ child.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </nav>
-    </header>
+  {% include "home/includes/header.html" %}
 
-    <!-- MAIN -->
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; {{ now|date:"Y" }} Latvijas Kara Muzejs</p>
-        <ul>
-            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-        </ul>
-    </footer>
+  {% include "home/includes/footer.html" %}
 
-    <!-- JS -->
-    <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

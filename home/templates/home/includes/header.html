@@ -1,11 +1,13 @@
 <header>
   <nav>
     <ul>
-      <li><a href="/">Sākums</a></li>
-      <li><a href="/aktualitates/">Aktualitātes</a></li>
-      <li><a href="/ekspozicijas/">Ekspozīcijas</a></li>
-      <li><a href="/galerijas/">Galerijas</a></li>
-      <li><a href="/kontakti/">Kontakti</a></li>
+      {% for subpage in page.get_children.live.in_menu %}
+        <li>
+          <a href="{{ subpage.url }}" {% if request.path == subpage.url %}class="active"{% endif %}>
+            {{ subpage.title }}
+          </a>
+        </li>
+      {% endfor %}
     </ul>
   </nav>
 </header>

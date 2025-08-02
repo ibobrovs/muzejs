@@ -1,6 +1,8 @@
 {% extends "home/base.html" %}
 {% block content %}
   <h1>{{ page.title }}</h1>
-  {{ page.intro|richtext }}
-  {% for block in page.body %}{{ block }}{% endfor %}
+  {% if page.address %}<p><strong>Adrese:</strong> {{ page.address|linebreaksbr }}</p>{% endif %}
+  {% if page.phone %}<p><strong>Tālrunis:</strong> {{ page.phone }}</p>{% endif %}
+  {% if page.email %}<p><strong>E-pasts:</strong> <a href="mailto:{{ page.email }}">{{ page.email }}</a></p>{% endif %}
+  {% if page.map_embed %}<div class="map">{{ page.map_embed|safe }}</div>{% endif %}
 {% endblock %}

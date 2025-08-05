@@ -1,10 +1,10 @@
-<header>
+<header class="site-header">
   <nav>
     <ul>
-      {% for subpage in page.get_children.live.in_menu %}
+      {% for item in menu_items %}
         <li>
-          <a href="{{ subpage.url }}" {% if request.path == subpage.url %}class="active"{% endif %}>
-            {{ subpage.title }}
+          <a href="{{ item.url }}" {% if request.path == item.url %}class="active"{% endif %}>
+            {{ item.title }}
           </a>
         </li>
       {% endfor %}

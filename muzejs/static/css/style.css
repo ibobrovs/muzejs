@@ -118,3 +118,43 @@ footer a:hover {
     color: white;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Layout */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}
+
+/* Header/Footer */
+.site-header, .site-footer {
+    background-color: #2d2d2d;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.site-header ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.site-header a {
+    color: white;
+    text-decoration: none;
+}
+
+.site-header a:hover {
+    text-decoration: underline;
+}

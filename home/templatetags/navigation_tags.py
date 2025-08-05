@@ -3,17 +3,11 @@ from wagtail.models import Page
 
 register = template.Library()
 
-@register.inclusion_tag('home/includes/menu_items.html', takes_context=True)
-def main_menu(context, calling_page=None):
-    request = context['request']
-
-    if calling_page:
-        parent = calling_page.get_parent()
-        menu_items = parent.get_children().live().in_menu()
-    else:
-        menu_items = []
-
+@register.inclusion_tag('home/includes/header.html', takes_context=True)
+def main_menu(context):
+    root = Page.get_first_root_node()
+    menu_items = root.get_children().live().in_menu()
     return {
         'menu_items': menu_items,
-        'request': request
+        'request': context['request'],
     }

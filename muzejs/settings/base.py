@@ -51,7 +51,11 @@ INSTALLED_APPS = [
     'wagtail_localize',
     'wagtail_localize.locales',
     "wagtail_modeladmin",
+    'corsheaders'
+    "wagtail.api.v2",
+    "rest_framework",
     ]
+
 
 MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -62,6 +66,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "muzejs.urls"
@@ -198,3 +203,5 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES
 WAGTAIL_LOCALIZE = {
     'AUTO_POPULATE_TRANSLATIONS': False,
 }
+
+CORS_ALLOW_ALL_ORIGINS = True
